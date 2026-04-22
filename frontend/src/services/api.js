@@ -151,6 +151,19 @@ export const metricsAPI = {
 };
 
 // ============================================================
+// Uploads API (admin)
+// ============================================================
+export const uploadsAPI = {
+  image: (file) => {
+    const form = new FormData();
+    form.append('file', file);
+    return api.post('/admin/uploads/image', form, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+};
+
+// ============================================================
 // Audit API (admin)
 // ============================================================
 export const auditAPI = {
