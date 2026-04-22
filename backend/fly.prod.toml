@@ -1,0 +1,42 @@
+# ============================================================
+# Fly.io config — VilaVest Backend (PROD)
+# Deploy: flyctl deploy --config fly.prod.toml --remote-only
+# ============================================================
+
+app            = "vilavest-api-prod"
+primary_region = "gru"            # São Paulo (closest to Brazil)
+kill_signal    = "SIGTERM"
+kill_timeout   = "30s"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT            = "8080"
+  SERVER_HOST     = "0.0.0.0"
+  APP_ENV         = "production"
+  LOG_LEVEL       = "info"
+  DB_SSLMODE      = "require"
+  FRONTEND_URL    = "https://vilavest.leonardoflores.dev.br"
+  ALLOWED_ORIGINS = "https://vilavest.leonardoflores.dev.br"
+  # Secrets set via: flyctl secrets set DATABASE_URL=... JWT_SECRET=...
+
+[http_service]
+  internal_port       = 8080
+  force_https         = true
+  auto_stop_machines  = "stop"   # Saves free-tier hours during low traffic
+  auto_start_machines = true
+  min_machines_running = 0       # Set to 1 once you have paying traffic
+  processes           = ["app"]
+
+  [[http_service.checks]]
+    interval     = "30s"
+    timeout      = "5s"
+    grace_period = "10s"
+    method       = "GET"
+    path         = "/health"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus     = 1
+  memory   = "256mb"

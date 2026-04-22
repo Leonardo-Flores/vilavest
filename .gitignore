@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Build outputs
+dist/
+build/
+bin/
+
+# Environment
+.env
+.env.local
+.env.*.local
+!*.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Go binaries (keep go.sum committed!)
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Docker
+docker-compose.override.yml
+
+# Fly.io
+.fly/
+fly.toml.bak
+
+# Vercel
+.vercel/
+
+# Coverage
+coverage/
+*.coverprofile
